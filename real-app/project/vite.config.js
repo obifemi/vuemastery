@@ -1,7 +1,7 @@
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
-import vue from './@vitejs/plugin-v'
+import vue from './node_modules/@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
