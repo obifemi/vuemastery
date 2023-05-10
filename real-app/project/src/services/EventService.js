@@ -1,6 +1,6 @@
 import axios from 'axios';
 const apiClient = axios.create({
-    baseURL: `https://my-json-server.typicode.com/obifemi/fake_json`,
+    baseURL: `https://my-json-server.typicode.com/Code-Pop/Touring-Vue-Router`,
     withCredentials: false,
     headers: {
         Accept: 'application/json',
@@ -9,10 +9,11 @@ const apiClient = axios.create({
 });
 
 export default {
-    getEvents() {
-        return apiClient.get('/events');
+    getEvents(perPage, page) {
+        return apiClient.get('/events?_limit=' + perPage + '&_page=' + page);
     },
     getEvent(id) {
         return apiClient.get('/events/' + id);
     }
 }
+
