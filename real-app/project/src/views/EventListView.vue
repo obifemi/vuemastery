@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watchEffect,computed } from 'vue'
+import { ref, onMounted, watchEffect, computed } from 'vue'
 
 import EventCard from '@/components/EventCard.vue'
 import EventService from '@/services/EventService.js'
@@ -19,7 +19,6 @@ watchEffect(() => {
 function fetchEvents() {
   EventService.getEvents(2, page.value)
     .then((response) => {
-      
       console.log(response)
       events.value = response.data
       totalEvents.value = response.headers['x-total-count']
@@ -40,12 +39,12 @@ const hasNextPage = computed(() => {
 </script>
 
 <template>
-  <h1 >Events For Good</h1>
-  <p v-if="events===null">Events Loading...</p>
-  <div v-if="events!=null" class="events">
+  <h1>Events For Good</h1>
+  <p v-if="events === null">Events Loading...</p>
+  <div v-if="events != null" class="events">
     <EventCard v-for="event in events" :key="event.id" :event="event" />
-
-    <router-link
+    <div class="pagination">
+      <router-link
         id="page-prev"
         :to="{ name: 'event-list', query: { page: page - 1 } }"
         rel="prev"
@@ -62,11 +61,8 @@ const hasNextPage = computed(() => {
         @click="page++"
         >Next</router-link
       >
-
+    </div>
   </div>
-
-
-   
 </template>
 
 <style scoped>
@@ -74,5 +70,20 @@ const hasNextPage = computed(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.pagination {
+  display: flex;
+  width:290px
+}
+.pagination a {
+  flex: 1;
+  text-decoration:none;
+  color: #000;
+}
+#page-prev{
+  text-align:left;
+}
+#page-next{
+  text-align:right;
 }
 </style>
