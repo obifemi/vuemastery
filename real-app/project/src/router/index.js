@@ -5,6 +5,8 @@ import EventDetailsView from '../views/event/Details.vue'
 import EventRegisterView from '../views/event/Register.vue'
 import EventEditView from '../views/event/Edit.vue'
 import EventLayout from '../views/event/Layout.vue'
+import NotFoundView from '../views/NotFound.vue'
+import NetworkError from '../views/NetworkError.vue'
 
 
 const router = createRouter({
@@ -17,15 +19,29 @@ const router = createRouter({
       props: (route) => ({ page: parseInt(route.query.page) || 1 })
     },
     {
-      path: '/about',
+      path: '/about-us',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: AboutView,
+      alias: '/about',
     },
     {
-      path: '/event/:id',
+      path: '/:catchAll(.*)',
+      name: 'not-found',
+      component: NotFoundView,
+    },
+    {
+      path: '/404/:resource',
+      name: '404-resource',
+      component: NotFoundView,
+      props: true,
+    },  
+    {
+      path: '/network-error',
+      name: 'network-error',
+      component: NetworkError
+    },
+    {
+      path: '/events/:id',
       name: 'event-layout',
       component: EventLayout,
       props: true,
@@ -46,7 +62,13 @@ const router = createRouter({
           component: EventEditView,
         }
       ]
-    }
+    },
+    {
+      path: '/event/:id',
+      redirect: () => {
+        return { name: 'event-details'}
+      },
+    },
   ],
 })
 

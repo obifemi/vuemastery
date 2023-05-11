@@ -24,7 +24,7 @@ function fetchEvents() {
       totalEvents.value = response.headers['x-total-count']
     })
     .catch((error) => {
-      console.log(error)
+      this.$router.push({ name: 'network-error' })
     })
 }
 function previousPage() {
@@ -83,7 +83,5 @@ const hasNextPage = computed(() => {
 #page-prev{
   text-align:left;
 }
-#page-next{
-  text-align:right;
-}
+
 </style>
